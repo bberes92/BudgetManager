@@ -1,0 +1,193 @@
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>Graphs</title>
+{% endblock %}
+
+{% extends "base.html" %}
+{% block content %}
+<div class="grid-container">
+    <div class="grid-item-1">
+        <canvas id="expense_chart" width="300" height="300"></canvas>
+    </div>
+    <div class="grid-item-2">
+        <canvas id="income_chart" width="300" height="300"></canvas>
+    </div>
+    <div class="grid-item-3">
+        <canvas id="bar_chart" width="600" height="300"></canvas>
+    </div>
+  </div> 
+
+<script>
+    // ***** EXPENSE PIE CHART ***** 
+    //Setup block
+    let expense_pie_labels = JSON.parse('{{ ex_pie_labels | tojson }}');
+    let expense_pie_values = JSON.parse('{{ ex_pie_values | tojson }}');
+
+    const expense_data = {
+        labels: expense_pie_labels,
+        datasets: [{
+            label: '# of Votes',
+            data: expense_pie_values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            hoverOffset: 4,
+            offset: 10,
+            borderWidth: 1
+        }]
+    };
+
+    //config block
+    const expense_config = {
+        type: 'pie',
+        data: expense_data,
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        position: 'top',
+                        text: "Expense Chart"
+                    }
+                }
+            }
+        }
+    };
+
+    // render block
+    const expense_ctx = document.getElementById('expense_chart').getContext('2d');
+    const expense_chart = new Chart(expense_ctx, expense_config);
+
+    // ***** END OF EXPENSE PIE CHART ***** 
+
+    // ---------------------------------------------------------------------
+    
+    // ***** INCOME PIE CHART ***** 
+    //Setup block
+    let income_pie_labels = JSON.parse('{{ in_pie_labels | tojson }}');
+    let income_pie_values = JSON.parse('{{ in_pie_values | tojson }}');
+
+    const income_data = {
+        labels: income_pie_labels,
+        datasets: [{
+            label: '# of Votes',
+            data: income_pie_values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            hoverOffset: 4,
+            offset: 10,
+            borderWidth: 1
+        }]
+    };
+
+    //config block
+    const income_config = {
+        type: 'pie',
+        data: income_data,
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        position: 'top',
+                        text: "Income Chart"
+                    }
+                }
+            }
+        }
+    };
+
+    // render block
+    const income_ctx = document.getElementById('income_chart').getContext('2d');
+    const income_myChart = new Chart(income_ctx, income_config);
+    
+    // ***** END OF INCOME PIE CHART ***** 
+
+    // ***** BAR CHART ***** 
+    //Setup block
+    let bar_chart_labels = JSON.parse('{{ bar_monthly_labels | tojson }}');
+    let bar_chart_values = JSON.parse('{{ bar_monthly_values | tojson }}');
+
+    const bar_chart_data = {
+        labels: bar_chart_labels,
+        datasets: [{
+            label: '# of Votes',
+            data: bar_chart_values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    //config block
+    const bar_chart_config = {
+        type: 'bar',
+        data: bar_chart_data,
+        options: {
+            responsive: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Monthly Expense"
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+    };
+
+    // render block
+    const bar_chart_ctx = document.getElementById('bar_chart').getContext('2d');
+    const bar_myChart = new Chart(bar_chart_ctx, bar_chart_config);
+    
+    // ***** END OF LINE CHART ***** 
+   
+</script>
+{% endblock %}

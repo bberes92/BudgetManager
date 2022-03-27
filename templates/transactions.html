@@ -1,0 +1,61 @@
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='transactions.css')}}">
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<title>Transactions</title>
+{% endblock %}
+
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/transactions" method="POST">
+    <input type="date" name="from_date_input" id="from_date_input">
+    <input type="date" name="to_date_input" id="to_date_input">
+    <input type="submit" value="Filter">
+</form>
+<br>
+<button id="add_btn" onclick="add_btn()">Add</button>
+<br>
+<div class="form_container">
+    <form action="/add_to_db" method="POST">
+        <div>
+            <label for="date_input">Date:</label>
+            <input type="date" name="date_input" required>
+            <label for="amount">Amount:</label>
+            <input type="number" name="sum_input" id="amount" class="input_field" placeholder="Enter amount">
+        </div>
+        <div>
+            <label for="">Category:</label>
+            <input type="radio" id="income" name="main_category" value="INCOME" onchange="income_cheked()">
+            <label for="income">Income</label>
+            <input type="radio" id="expense" name="main_category" value="EXPENSE" onchange="expense_cheked()">
+            <label for="expense">Expense</label>
+            <select id="select_category" name="sub_category"></select>
+        </div>
+        <div>
+            <input type="submit" value="Submit">
+            <button type="reset">Clear</button>
+        </div>
+    </form>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>DATE</th>
+            <th>CATEGORY</th>
+            <th>INCOME</th>
+            <th>EXPENSE</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td id="income_col">{{ item[3] }}</td>
+            <td id="expense_col">{{ item[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

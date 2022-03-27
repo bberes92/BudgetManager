@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='sign_up.css')}}">
+    <title>Sign-Up</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/sign_up" method="POST">
+            <input type="email" class="input-field" name="email" id="email_input" placeholder="Email">
+            <br>
+            <input type="password" class="input-field" name="password" id="password_input" placeholder="Password">
+            <br>
+            <input type="text" class="input-field" name="username" id="username_input" placeholder="Username">
+            <br>
+            <input type="number" class="input-field" name="balance" id="balance_input" placeholder="Current Balance">
+            <br>
+            <input type="submit" class="submit-btn" value="Create Account">
+        </form>
+    </div>
+</body>
+</html>
