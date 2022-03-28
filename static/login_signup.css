@@ -63,19 +63,6 @@ body {
     cursor: pointer;
 }
 
-.copyright {
-    max-width: fit-content;
-    position: absolute;
-    bottom: 5px;
-    right: 0;
-    font-size: 12px;
-    margin: 0;
-}
-
-p {
-    font-size: 12px;
-}
-
 .logo {
     margin: 20px 0;
 }
