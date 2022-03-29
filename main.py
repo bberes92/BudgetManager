@@ -37,6 +37,13 @@ def sign_up():
 
     return render_template("sign_up.html")
 
+@app.route("/log_out")
+def log_out():
+    session["user_name"] = ""
+    session["user_id"] = ""
+
+    return redirect(url_for("login"))
+
 @app.route("/transactions", methods=["GET", "POST"])
 def transactions():
     if session.get('user_name') is None:

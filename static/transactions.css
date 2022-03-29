@@ -1,34 +1,81 @@
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  margin-top: 100px;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 40%;
+}
+
+.container {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+  border: 1px solid rgb(11, 24, 212);
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(97, 97, 97, 0.5);
+}
+
 #income_col {
     color: forestgreen;
   }
   
-  #expense_col {
-    color: red;
-  }
-  
-  #container {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-  }
-  
-  table {
-    border: 1px solid #000;
-    border-collapse: collapse;
-    text-align: center;
-  }
-  
-  tbody tr:nth-child(even){
-    background: #f0f0f2;
-  }
-  
-  th {
-    border: 1px solid #000;
-    padding: 5px 10px;
-  }
-  
-  td {
-    border: 1px solid #000;
-    padding: 5px 10px;
-  }
+#expense_col {
+  color: red;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+thead {
+  background: #395870;
+  color: #fff;
+}
+
+tbody tr:nth-child(even){
+  background: #f0f0f2;
+}
+
+th {
+  padding: 10px 25px;
+}
+
+td {
+  border: 1px solid #cecfd5;;
+  padding: 10px 25px;
+}
+
+.input_field {
+  width: 150px;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid rgb(11, 24, 212);
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+input[type="date"] {
+  background-color: cadetblue;
+  padding: 5px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}

@@ -26,8 +26,3 @@ function expense_cheked(){
         }
     }
 }
-
-function add_btn() {
-
-    document.querySelector(".form_container").style.display = "block";
-}
