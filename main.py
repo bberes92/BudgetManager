@@ -46,10 +46,9 @@ def log_out():
 
 @app.route("/transactions", methods=["GET", "POST"])
 def transactions():
-    if session.get('user_name') is None:
-        return redirect(url_for("login"))
-
+    
     user_id = session.get("user_id")
+    user_name = session.get("user_name")
     dbo = db()
 
     if request.method == 'POST':
@@ -61,7 +60,7 @@ def transactions():
         to_date = date.today()
 
     data = dbo.get_user_data(user_id, from_date, to_date)
-    return render_template("transactions.html", data=data)
+    return render_template("transactions.html", data=data, from_date=from_date, to_date=to_date, user_name=user_name)
 
 @app.route("/graphs")
 def graphs():
@@ -98,20 +97,20 @@ def graphs():
 def add_to_db():
 
     date = request.form["date_input"]
-    main_category = request.form["main_category"]
-    sub_category = request.form["sub_category"]
+    transaction_type = request.form["type_select"]
+    category = request.form["category"]
     sum = request.form["sum_input"]
     user_id = session.get("user_id")
 
-    if(main_category == "INCOME"):
+    if(transaction_type == "INCOME"):
         income = sum
         expense = ""
     
-    if(main_category == "EXPENSE"):
+    if(transaction_type == "EXPENSE"):
         income = ""
         expense = sum 
     
-    item = (date, sub_category, income, expense, user_id)
+    item = (date, category, income, expense, user_id)
 
     dbo = db()
     dbo.insert(item)

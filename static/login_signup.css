@@ -20,21 +20,22 @@ body {
 }
 
 .right {
+    position: relative;
     width: 30%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cover-img {
-    max-width: 100%;
+    width: 100%;
     max-height: 100vh;
     height: auto;
 }
 
 .container {
     margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
     text-align: center;
     border: 1px solid rgb(11, 24, 212);
     border-radius: 10px;
