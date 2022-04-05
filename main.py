@@ -1,3 +1,4 @@
+from time import sleep
 from flask import Flask, render_template, request, redirect, session, url_for
 from datetime import date
 from DB.database import BudgetManager as db
@@ -11,8 +12,8 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
 
-        dbo = db()
-        user = dbo.get_user_by_email(email)
+        dao = db()
+        user = dao.get_user_by_email(email)
         
         if user is not None and user[2] == password:
             session["user_name"] = user[3]
@@ -30,8 +31,8 @@ def sign_up():
         balance = request.form["balance"]
         user = (email, password, username, balance)
 
-        dbo = db()
-        dbo.insert_user(user)
+        dao = db()
+        dao.insert_user(user)
 
         return redirect(url_for("login"))
 
@@ -47,9 +48,10 @@ def log_out():
 @app.route("/transactions", methods=["GET", "POST"])
 def transactions():
     
+    dao = db()
     user_id = session.get("user_id")
     user_name = session.get("user_name")
-    dbo = db()
+    curr_balance = dao.get_user_balance(user_id)
 
     if request.method == 'POST':
         from_date = request.form["from_date_input"]
@@ -59,8 +61,12 @@ def transactions():
         from_date = date.today().replace(day=1)
         to_date = date.today()
 
-    data = dbo.get_user_data(user_id, from_date, to_date)
-    return render_template("transactions.html", data=data, from_date=from_date, to_date=to_date, user_name=user_name)
+    data = dao.get_user_data(user_id, from_date, to_date)
+    return render_template("transactions.html", data=data, 
+                                                from_date=from_date, 
+                                                to_date=to_date, 
+                                                user_name=user_name,
+                                                curr_balance=curr_balance)
 
 @app.route("/graphs")
 def graphs():
@@ -71,17 +77,17 @@ def graphs():
     month_end_date = today_date.replace(day=31)
     year_back_date = today_date.replace(year=today_date.year - 1)
     
-    dbo = db()
+    dao = db()
 
-    expense_pie_data = dbo.get_expenses_by_category(user_id, month_start_date, month_end_date)
+    expense_pie_data = dao.get_expenses_by_category(user_id, month_start_date, month_end_date)
     expense_pie_labels = [item[0] for item in expense_pie_data]
     expense_pie_values = [item[1] for item in expense_pie_data]
 
-    income_pie_data = dbo.get_income_by_category(user_id, month_start_date, month_end_date)
+    income_pie_data = dao.get_income_by_category(user_id, month_start_date, month_end_date)
     income_pie_labels = [item[0] for item in income_pie_data]
     income_pie_values = [item[1] for item in income_pie_data]
 
-    monthly_expense_data = dbo.get_monthly_expense(user_id, year_back_date, month_end_date)
+    monthly_expense_data = dao.get_monthly_expense(user_id, year_back_date, month_end_date)
     monthly_expense_labels = [item[0] for item in monthly_expense_data]
     monthly_expense_values = [item[1] for item in monthly_expense_data]
 
@@ -96,24 +102,29 @@ def graphs():
 @app.route("/add_to_db", methods=["POST"])
 def add_to_db():
 
+    dao = db()
     date = request.form["date_input"]
     transaction_type = request.form["type_select"]
     category = request.form["category"]
     sum = request.form["sum_input"]
     user_id = session.get("user_id")
+    curr_balance = dao.get_user_balance(user_id)
 
     if(transaction_type == "INCOME"):
         income = sum
         expense = ""
+        curr_balance += float(sum)
     
     if(transaction_type == "EXPENSE"):
         income = ""
         expense = sum 
+        curr_balance -= float(sum)
     
     item = (date, category, income, expense, user_id)
 
-    dbo = db()
-    dbo.insert(item)
+    
+    dao.insert(item)
+    dao.update_user_balance(user_id, curr_balance)
 
     return redirect(url_for("transactions"))   
 

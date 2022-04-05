@@ -36,6 +36,24 @@
   height: fit-content;
 }
 
+.form-container {
+  margin: 20px auto;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid rgb(189, 189, 189);
+}
+
+.add_form {
+  display: inline-flex;
+}
+
+.form-cell {
+  width: 160px;
+  height: 75px;
+  padding: 5px;
+}
+
 #income_col {
     color: forestgreen;
   }
@@ -69,18 +87,27 @@ td {
 
 .input_field {
   width: 150px;
-  margin: 10px 0;
-  padding: 5px 10px;
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 16px;
   border: 1px solid rgb(11, 24, 212);
-  border-radius: 10px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
 }
 
 input[type="date"] {
   background-color: cadetblue;
+  width: 150px;
+  margin-top: 5px;
   padding: 5px;
   font-size: 18px;
   border: none;
   outline: none;
   border-radius: 5px;
+}
+
+select {
+  width: 150px;
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 14px;
 }

@@ -35,3 +35,4 @@ function expense_selected(){
         category_selector.options.add(new Option(expense_categories[i], expense_categories[i]));
     };
 };
+

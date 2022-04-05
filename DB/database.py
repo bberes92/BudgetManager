@@ -1,3 +1,4 @@
+from queue import Empty
 import sqlite3
 
 
@@ -58,7 +59,10 @@ class BudgetManager:
         get_user_by_email_query = '''SELECT rowid, * FROM users WHERE EMAIL=?'''
         self.cur.execute(get_user_by_email_query, (email,))
         user = self.cur.fetchall()
-        return user[0]
+
+        if len(user) > 0:
+            return user[0]
+        else: return None
 
     def get_expenses_by_category(self, user_id, from_date, to_date):
         get_expenses_by_category_query = '''SELECT CATEGORY, sum(EXPENSE)
@@ -96,3 +100,20 @@ class BudgetManager:
         self.cur.execute(get_monthly_expense_query, (user_id, from_date, to_date))
         data = self.cur.fetchall()
         return data
+
+    def get_user_balance(self, user_id):
+        get_user_balance_query = '''SELECT BALANCE
+                                    FROM users
+                                    WHERE ROWID = ?'''
+
+        self.cur.execute(get_user_balance_query, (user_id,))
+        data = self.cur.fetchall()
+        return data[0][0]
+
+    def update_user_balance(self, user_id, balance):
+        get_user_balance_query = '''UPDATE users
+                                    SET BALANCE = ?
+                                    WHERE ROWID = ?'''
+
+        self.cur.execute(get_user_balance_query, (balance, user_id))
+        self.conn.commit()

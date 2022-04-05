@@ -11,7 +11,7 @@
         <div class="container">
             <div>
                 <h6>Welcome Back, {{ user_name }}</h6>
-                <p>Balance: 6500</p>
+                <p>Balance: {{ curr_balance }}</p>
             </div>
             <div>
                 <h6>Filter Dates:</h6>
@@ -21,31 +21,51 @@
                     <input type="submit" value="Filter">
                 </form>
             </div>
-            <h1>Add Transaction</h1>
-            <form action="/add_to_db" method="POST">
-                <label for="date_input">Date:</label>
-                <input type="date" name="date_input" required>
-                <br>
-                <label for="amount">Amount:</label>
-                <input type="number" name="sum_input" id="amount" class="input_field" placeholder="Enter amount">
-                <br>
-                <label for="type_select">Type:</label>
-                <select name="type_select" id="type_select" onchange="fill_category_options(value)">
-                    <option value="INCOME">INCOME</option>
-                    <option value="EXPENSE">EXPENSE</option>
-                </select>
-                <br>
-                <label for="select_category">Category:</label>
-                <select id="select_category" name="category"></select>
-                <br>
-                <input type="submit" value="Add">
-            </form>
         </div>
     </div>
 
     <div class="column right">
+        <div class="form-container">
+            <h3>Add Transaction</h3>
+            
+            <form action="/add_to_db" method="POST">
+                <div class="add_form">
+                    <div class="form-cell">
+                        <label for="date_input">Date:</label>
+                        <br>
+                        <input type="date" name="date_input" required>
+                    </div>
+
+                    <div class="form-cell">
+                        <label for="amount">Amount:</label>
+                        <br>
+                        <input type="number" name="sum_input" id="amount" class="input_field"
+                            placeholder="Enter amount">
+                    </div>
+
+                    <div class="form-cell">
+                        <label for="type_select">Type:</label>
+                        <br>
+                        <select name="type_select" id="type_select" onchange="fill_category_options(value)">
+                            <option value="INCOME">INCOME</option>
+                            <option value="EXPENSE">EXPENSE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-cell">
+                        <label for="select_category">Category:</label>
+                        <br>
+                        <select id="select_category" name="category"></select>
+                    </div>
+                </div>
+
+                <br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+
         <div class="table-container">
-            <p>Transactions from {{ from_date }} to {{ to_date }}</p>
+            <p>{{ from_date }} to {{ to_date }}</p>
             <table>
                 <thead>
                     <tr>
