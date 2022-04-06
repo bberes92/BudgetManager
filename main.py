@@ -62,11 +62,25 @@ def transactions():
         to_date = date.today()
 
     data = dao.get_user_data(user_id, from_date, to_date)
+
+    expense_pie_data = dao.get_expenses_by_category(user_id, from_date, to_date)
+    expense_pie_labels = [item[0] for item in expense_pie_data]
+    expense_pie_values = [item[1] for item in expense_pie_data]
+
+    income_pie_data = dao.get_income_by_category(user_id, from_date, to_date)
+    income_pie_labels = [item[0] for item in income_pie_data]
+    income_pie_values = [item[1] for item in income_pie_data]
+
+
     return render_template("transactions.html", data=data, 
                                                 from_date=from_date, 
                                                 to_date=to_date, 
                                                 user_name=user_name,
-                                                curr_balance=curr_balance)
+                                                curr_balance=curr_balance,
+                                                ex_pie_labels=expense_pie_labels,
+                                                ex_pie_values=expense_pie_values,
+                                                in_pie_labels=income_pie_labels,
+                                                in_pie_values=income_pie_values)
 
 @app.route("/graphs")
 def graphs():

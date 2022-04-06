@@ -12,18 +12,22 @@
 }
 
 .left {
-  width: 30%;
+  width: 20%;
+}
+
+.middle {
+  width: 50%;
 }
 
 .right {
-  width: 70%;
+  width: 30%;
 }
 
 .container {
-  margin: 50px auto;
-  width: fit-content;
+  margin: 20px auto;
+  width: 90%;
   height: fit-content;
-  padding: 15px;
+  padding: 10px;
   text-align: left;
   border: 1px solid rgb(11, 24, 212);
   border-radius: 10px;
@@ -39,7 +43,7 @@
 .form-container {
   margin: 20px auto;
   padding: 10px;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
   border: 1px solid rgb(189, 189, 189);
 }
@@ -90,17 +94,16 @@ td {
   margin-top: 5px;
   padding: 5px;
   font-size: 16px;
-  border: 1px solid rgb(11, 24, 212);
+  border: 1px solid rgb(189, 189, 189);
   border-radius: 5px;
 }
 
 input[type="date"] {
-  background-color: cadetblue;
   width: 150px;
   margin-top: 5px;
   padding: 5px;
-  font-size: 18px;
-  border: none;
+  font-size: 17px;
+  border: 1px solid rgb(189, 189, 189);
   outline: none;
   border-radius: 5px;
 }

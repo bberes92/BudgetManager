@@ -1,6 +1,7 @@
 {% block head %}
 <link rel="stylesheet" href="{{url_for('static', filename='transactions.css')}}">
 <script src="{{url_for('static', filename='app.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <title>Transactions</title>
 {% endblock %}
 
@@ -10,21 +11,27 @@
     <div class="column left">
         <div class="container">
             <div>
-                <h6>Welcome Back, {{ user_name }}</h6>
+                <h5>Welcome {{ user_name }}</h5>
                 <p>Balance: {{ curr_balance }}</p>
             </div>
             <div>
                 <h6>Filter Dates:</h6>
                 <form action="/transactions" method="POST">
+                    <label for="from_date_input">From:</label>
+                    <br>
                     <input type="date" name="from_date_input" id="from_date_input">
+                    <br>
+                    <label for="to_date_input">To:</label>
+                    <br>
                     <input type="date" name="to_date_input" id="to_date_input">
+                    <br>
                     <input type="submit" value="Filter">
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="column right">
+    <div class="column middle">
         <div class="form-container">
             <h3>Add Transaction</h3>
             
@@ -89,6 +96,130 @@
         </div>
     </div>
 
+    <div class="column right">
+        <div class="container">
+            <canvas id="expense_chart" width="300" height="300"></canvas>
+            <canvas id="income_chart" width="300" height="300"></canvas>
+        </div>
+    </div>
+
 </div>
 
+<script>
+    // ***** EXPENSE PIE CHART *****
+    //Setup block
+    let expense_pie_labels = JSON.parse('{{ ex_pie_labels | tojson }}');
+    let expense_pie_values = JSON.parse('{{ ex_pie_values | tojson }}');
+
+    const expense_data = {
+        labels: expense_pie_labels,
+        datasets: [{
+            label: '# of Votes',
+            data: expense_pie_values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            hoverOffset: 4,
+            offset: 10,
+            borderWidth: 1
+        }]
+    };
+
+    //config block
+    const expense_config = {
+        type: 'pie',
+        data: expense_data,
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        position: 'top',
+                        text: "Expense Chart"
+                    }
+                }
+            }
+        }
+    };
+
+    // render block
+    const expense_ctx = document.getElementById('expense_chart').getContext('2d');
+    const expense_chart = new Chart(expense_ctx, expense_config);
+
+    // ***** END OF EXPENSE PIE CHART ***** 
+
+    // ---------------------------------------------------------------------
+    
+    // ***** INCOME PIE CHART ***** 
+    //Setup block
+    let income_pie_labels = JSON.parse('{{ in_pie_labels | tojson }}');
+    let income_pie_values = JSON.parse('{{ in_pie_values | tojson }}');
+
+    const income_data = {
+        labels: income_pie_labels,
+        datasets: [{
+            label: '# of Votes',
+            data: income_pie_values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            hoverOffset: 4,
+            offset: 10,
+            borderWidth: 1
+        }]
+    };
+
+    //config block
+    const income_config = {
+        type: 'pie',
+        data: income_data,
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        position: 'top',
+                        text: "Income Chart"
+                    }
+                }
+            }
+        }
+    };
+
+    // render block
+    const income_ctx = document.getElementById('income_chart').getContext('2d');
+    const income_myChart = new Chart(income_ctx, income_config);
+    
+    // ***** END OF INCOME PIE CHART ***** 
+</script>
 {% endblock %}
