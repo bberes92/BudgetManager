@@ -1,37 +1,52 @@
 {% block head %}
-<link rel="stylesheet" href="{{url_for('static', filename='transactions.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
 <script src="{{url_for('static', filename='app.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<title>Transactions</title>
+<title>Dashboard</title>
 {% endblock %}
 
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <div class="column left">
-        <div class="container">
-            <div>
-                <h5>Welcome {{ user_name }}</h5>
-                <p>Balance: {{ curr_balance }}</p>
-            </div>
-            <div>
-                <h6>Filter Dates:</h6>
-                <form action="/transactions" method="POST">
-                    <label for="from_date_input">From:</label>
-                    <br>
-                    <input type="date" name="from_date_input" id="from_date_input">
-                    <br>
-                    <label for="to_date_input">To:</label>
-                    <br>
-                    <input type="date" name="to_date_input" id="to_date_input">
-                    <br>
-                    <input type="submit" value="Filter">
-                </form>
-            </div>
-        </div>
+
+<div class="row bar">
+    <div class="profile-container">
+        <img src="../static/images/profile_pic.png" width="64" height="64" alt="Not Found...">
+        <p>Welcome, {{ user_name }}</p>
     </div>
 
-    <div class="column middle">
+    <div class="data-box balance-box">
+        <h5>Balance</h5>
+        <h3>{{ curr_balance }}</h3>
+        <img src="..//static/images/balance.png" width="32" height="32" alt="Not Found...">
+    </div>
+
+    <div class="data-box income-box">
+        <h5>Total Income</h5>
+        <h3>{{ total_income }}</h3>
+        <img src="..//static/images/income.png" width="32" height="32" alt="Not Found...">
+    </div>
+
+    <div class="data-box expense-box"> 
+        <h5>Total Expense</h5>
+        <h3>{{ total_expense }}</h3>
+        <img src="..//static/images/expense.png" width="32" height="32" alt="Not Found...">
+    </div>
+
+    <div class="date-container">
+        <p>Date Range: {{ from_date }} - {{ to_date }}</p>
+        <form action="/dashboard" method="POST">
+            <label for="from_date_input">From:</label>
+            <input type="date" name="from_date_input" id="from_date_input">
+            <label for="to_date_input">To:</label>
+            <input type="date" name="to_date_input" id="to_date_input">
+            <input type="submit" value="Show">
+        </form>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="column left">
         <div class="form-container">
             <h3>Add Transaction</h3>
             
@@ -64,15 +79,15 @@
                         <br>
                         <select id="select_category" name="category"></select>
                     </div>
-                </div>
 
-                <br>
-                <input type="submit" value="Add">
+                    <div class="form-cell">
+                        <input type="submit" value="Add">
+                    </div>
+                </div>
             </form>
         </div>
 
         <div class="table-container">
-            <p>{{ from_date }} to {{ to_date }}</p>
             <table>
                 <thead>
                     <tr>
@@ -98,8 +113,9 @@
 
     <div class="column right">
         <div class="container">
-            <canvas id="expense_chart" width="300" height="300"></canvas>
-            <canvas id="income_chart" width="300" height="300"></canvas>
+            <canvas id="expense_chart" width="450" height="300"></canvas>
+            <br>
+            <canvas id="income_chart" width="450" height="300"></canvas>
         </div>
     </div>
 

@@ -1,3 +1,4 @@
+from functools import total_ordering
 from time import sleep
 from flask import Flask, render_template, request, redirect, session, url_for
 from datetime import date
@@ -18,7 +19,7 @@ def login():
         if user is not None and user[2] == password:
             session["user_name"] = user[3]
             session["user_id"] = user[0]
-            return redirect(url_for("transactions"))
+            return redirect(url_for("dashboard"))
 
     return render_template("login.html")
 
@@ -45,8 +46,8 @@ def log_out():
 
     return redirect(url_for("login"))
 
-@app.route("/transactions", methods=["GET", "POST"])
-def transactions():
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
     
     dao = db()
     user_id = session.get("user_id")
@@ -63,6 +64,12 @@ def transactions():
 
     data = dao.get_user_data(user_id, from_date, to_date)
 
+    income = [item[3] for item in data if item[3] is not ""]
+    total_income = sum(income)
+
+    expense = [item[4] for item in data if item[4] is not ""]
+    total_expense = sum(expense)
+
     expense_pie_data = dao.get_expenses_by_category(user_id, from_date, to_date)
     expense_pie_labels = [item[0] for item in expense_pie_data]
     expense_pie_values = [item[1] for item in expense_pie_data]
@@ -72,15 +79,17 @@ def transactions():
     income_pie_values = [item[1] for item in income_pie_data]
 
 
-    return render_template("transactions.html", data=data, 
-                                                from_date=from_date, 
-                                                to_date=to_date, 
-                                                user_name=user_name,
-                                                curr_balance=curr_balance,
-                                                ex_pie_labels=expense_pie_labels,
-                                                ex_pie_values=expense_pie_values,
-                                                in_pie_labels=income_pie_labels,
-                                                in_pie_values=income_pie_values)
+    return render_template("dashboard.html",data=data, 
+                                            from_date=from_date, 
+                                            to_date=to_date, 
+                                            user_name=user_name,
+                                            curr_balance=curr_balance,
+                                            ex_pie_labels=expense_pie_labels,
+                                            ex_pie_values=expense_pie_values,
+                                            in_pie_labels=income_pie_labels,
+                                            in_pie_values=income_pie_values,
+                                            total_income=total_income,
+                                            total_expense=total_expense)
 
 @app.route("/graphs")
 def graphs():
@@ -140,7 +149,7 @@ def add_to_db():
     dao.insert(item)
     dao.update_user_balance(user_id, curr_balance)
 
-    return redirect(url_for("transactions"))   
+    return redirect(url_for("dashboard"))   
 
 if __name__ == '__main__':
     app.run()

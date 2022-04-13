@@ -4,7 +4,15 @@
 
 .row {
   display: flex;
-  margin-top: 100px;
+}
+
+.bar {
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 5px;
+  padding: 10px 0;
+  border: 1px solid rgb(161, 161, 161);
 }
 
 .column {
@@ -12,26 +20,19 @@
 }
 
 .left {
-  width: 20%;
-}
-
-.middle {
-  width: 50%;
+  width: 60%;
 }
 
 .right {
-  width: 30%;
+  width: 40%;
 }
 
 .container {
-  margin: 20px auto;
-  width: 90%;
+  margin: 10px auto;
+  width: 98%;
   height: fit-content;
   padding: 10px;
-  text-align: left;
-  border: 1px solid rgb(11, 24, 212);
-  border-radius: 10px;
-  box-shadow: 0 0 15px 4px rgba(97, 97, 97, 0.5);
+  border: 1px solid rgb(189, 189, 189);;
 }
 
 .table-container {
@@ -41,11 +42,53 @@
 }
 
 .form-container {
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 10px;
-  width: 100%;
+  width: 98%;
   height: fit-content;
   border: 1px solid rgb(189, 189, 189);
+}
+
+.data-box {
+  width: 12%;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+  background-color: aqua;
+}
+
+.income-box {
+  background-color: #2db803;
+  border: 1px solid rgb(46, 46, 46);
+}
+
+.expense-box {
+  background-color: red;
+  border: 1px solid rgb(46, 46, 46);
+}
+
+.balance-box {
+  background-color: rgb(151, 144, 144);
+  border: 1px solid rgb(46, 46, 46);
+}
+
+.profile-container {
+  display: inline-flex;
+  width: 20%;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 5px;
+  align-items: center;
+}
+
+.date-container {
+  display: inline;
+  width: 35%;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
 }
 
 .add_form {
@@ -114,3 +157,16 @@ select {
   padding: 5px;
   font-size: 14px;
 }
+
+h3 {
+  margin: 0 0 5px 0;
+}
+
+h5 {
+  margin: 5px 0;
+}
+
+canvas {
+  margin: 0 auto;
+}
+
