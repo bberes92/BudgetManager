@@ -9,8 +9,7 @@
 .bar {
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  margin-left: 5px;
+  margin: 2px 2px 0 2px;
   padding: 10px 0;
   border: 1px solid rgb(161, 161, 161);
 }
@@ -59,22 +58,22 @@
 }
 
 .income-box {
-  background-color: #2db803;
+  background-color: #6BCB77;
   border: 1px solid rgb(46, 46, 46);
 }
 
 .expense-box {
-  background-color: red;
+  background-color: #DF2E2E;
   border: 1px solid rgb(46, 46, 46);
 }
 
 .balance-box {
-  background-color: rgb(151, 144, 144);
+  background-color: #DFDFDE;
   border: 1px solid rgb(46, 46, 46);
 }
 
 .profile-container {
-  display: inline-flex;
+  
   width: 20%;
   height: fit-content;
   margin: 0 auto;

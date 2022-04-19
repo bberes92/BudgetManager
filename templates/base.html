@@ -10,13 +10,6 @@
     {% endblock %}
 </head>
 <body>
-    <div>
-        <ul>
-            <li><img src="../static/images/logo_transparent_bg.png" alt="Not Found"></li>
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('log_out')}}">Log Out</a></li>
-        </ul>
-    </div>
     
     {% block content %} 
     {% endblock %}

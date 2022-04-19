@@ -10,8 +10,9 @@
 
 <div class="row bar">
     <div class="profile-container">
-        <img src="../static/images/profile_pic.png" width="64" height="64" alt="Not Found...">
+        <img src="../static/images/logo_transparent_bg.png" alt="Not Found">
         <p>Welcome, {{ user_name }}</p>
+        <a href="{{ url_for('log_out')}}">Log Out</a>
     </div>
 
     <div class="data-box balance-box">
@@ -26,7 +27,7 @@
         <img src="..//static/images/income.png" width="32" height="32" alt="Not Found...">
     </div>
 
-    <div class="data-box expense-box"> 
+    <div class="data-box expense-box">
         <h5>Total Expense</h5>
         <h3>{{ total_expense }}</h3>
         <img src="..//static/images/expense.png" width="32" height="32" alt="Not Found...">
@@ -47,68 +48,71 @@
 <div class="row">
 
     <div class="column left">
-        <div class="form-container">
-            <h3>Add Transaction</h3>
-            
-            <form action="/add_to_db" method="POST">
-                <div class="add_form">
-                    <div class="form-cell">
-                        <label for="date_input">Date:</label>
-                        <br>
-                        <input type="date" name="date_input" required>
-                    </div>
+        <div class="container">
+            <div class="form-container">
+                <h3>Add Transaction</h3>
 
-                    <div class="form-cell">
-                        <label for="amount">Amount:</label>
-                        <br>
-                        <input type="number" name="sum_input" id="amount" class="input_field"
-                            placeholder="Enter amount">
-                    </div>
+                <form action="/add_to_db" method="POST">
+                    <div class="add_form">
+                        <div class="form-cell">
+                            <label for="date_input">Date:</label>
+                            <br>
+                            <input type="date" name="date_input" required>
+                        </div>
 
-                    <div class="form-cell">
-                        <label for="type_select">Type:</label>
-                        <br>
-                        <select name="type_select" id="type_select" onchange="fill_category_options(value)">
-                            <option value="INCOME">INCOME</option>
-                            <option value="EXPENSE">EXPENSE</option>
-                        </select>
-                    </div>
+                        <div class="form-cell">
+                            <label for="amount">Amount:</label>
+                            <br>
+                            <input type="number" name="sum_input" id="amount" class="input_field"
+                                placeholder="Enter amount">
+                        </div>
 
-                    <div class="form-cell">
-                        <label for="select_category">Category:</label>
-                        <br>
-                        <select id="select_category" name="category"></select>
-                    </div>
+                        <div class="form-cell">
+                            <label for="type_select">Type:</label>
+                            <br>
+                            <select name="type_select" id="type_select" onchange="fill_category_options(value)">
+                                <option value="INCOME">INCOME</option>
+                                <option value="EXPENSE">EXPENSE</option>
+                            </select>
+                        </div>
 
-                    <div class="form-cell">
-                        <input type="submit" value="Add">
+                        <div class="form-cell">
+                            <label for="select_category">Category:</label>
+                            <br>
+                            <select id="select_category" name="category"></select>
+                        </div>
+
+                        <div class="form-cell">
+                            <input type="submit" value="Add">
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">DATE</th>
+                            <th scope="col">CATEGORY</th>
+                            <th scope="col">INCOME</th>
+                            <th scope="col">EXPENSE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td>{{ item[1] }}</td>
+                            <td>{{ item[2] }}</td>
+                            <td id="income_col">{{ item[3] }}</td>
+                            <td id="expense_col">{{ item[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">DATE</th>
-                        <th scope="col">CATEGORY</th>
-                        <th scope="col">INCOME</th>
-                        <th scope="col">EXPENSE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in data %}
-                    <tr>
-                        <td>{{ item[1] }}</td>
-                        <td>{{ item[2] }}</td>
-                        <td id="income_col">{{ item[3] }}</td>
-                        <td id="expense_col">{{ item[4] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
 
     <div class="column right">
@@ -130,7 +134,6 @@
     const expense_data = {
         labels: expense_pie_labels,
         datasets: [{
-            label: '# of Votes',
             data: expense_pie_values,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -156,18 +159,18 @@
 
     //config block
     const expense_config = {
-        type: 'pie',
+        type: 'bar',
         data: expense_data,
         options: {
             responsive: false,
             plugins: {
+                title: {
+                    display: true,
+                    position: 'top',
+                    text: "Expense Chart"
+                },
                 legend: {
-                    position: 'left',
-                    title: {
-                        display: true,
-                        position: 'top',
-                        text: "Expense Chart"
-                    }
+                    display: false
                 }
             }
         }
@@ -180,7 +183,7 @@
     // ***** END OF EXPENSE PIE CHART ***** 
 
     // ---------------------------------------------------------------------
-    
+
     // ***** INCOME PIE CHART ***** 
     //Setup block
     let income_pie_labels = JSON.parse('{{ in_pie_labels | tojson }}');
@@ -189,7 +192,6 @@
     const income_data = {
         labels: income_pie_labels,
         datasets: [{
-            label: '# of Votes',
             data: income_pie_values,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -215,18 +217,18 @@
 
     //config block
     const income_config = {
-        type: 'pie',
+        type: 'bar',
         data: income_data,
         options: {
             responsive: false,
             plugins: {
+                title: {
+                    display: true,
+                    position: 'top',
+                    text: "Income Chart"
+                },
                 legend: {
-                    position: 'left',
-                    title: {
-                        display: true,
-                        position: 'top',
-                        text: "Income Chart"
-                    }
+                    display: false
                 }
             }
         }
@@ -235,7 +237,7 @@
     // render block
     const income_ctx = document.getElementById('income_chart').getContext('2d');
     const income_myChart = new Chart(income_ctx, income_config);
-    
+
     // ***** END OF INCOME PIE CHART ***** 
 </script>
 {% endblock %}

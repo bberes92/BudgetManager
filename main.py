@@ -1,5 +1,3 @@
-from functools import total_ordering
-from time import sleep
 from flask import Flask, render_template, request, redirect, session, url_for
 from datetime import date
 from DB.database import BudgetManager as db
@@ -64,10 +62,10 @@ def dashboard():
 
     data = dao.get_user_data(user_id, from_date, to_date)
 
-    income = [item[3] for item in data if item[3] is not ""]
+    income = [item[3] for item in data if item[3] != ""]
     total_income = sum(income)
 
-    expense = [item[4] for item in data if item[4] is not ""]
+    expense = [item[4] for item in data if item[4] != ""]
     total_expense = sum(expense)
 
     expense_pie_data = dao.get_expenses_by_category(user_id, from_date, to_date)
