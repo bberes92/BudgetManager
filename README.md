@@ -1,3 +1,5 @@
 # Budget Manager
 
-Budget Manager is web application to track your incomes and expenses.
+Flask based web application that helps you manage and track your transactions.
+
+
