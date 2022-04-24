@@ -89,37 +89,6 @@ def dashboard():
                                             total_income=total_income,
                                             total_expense=total_expense)
 
-@app.route("/graphs")
-def graphs():
-
-    user_id = session.get("user_id")
-    today_date = date.today()
-    month_start_date = today_date.replace(day=1)
-    month_end_date = today_date.replace(day=31)
-    year_back_date = today_date.replace(year=today_date.year - 1)
-    
-    dao = db()
-
-    expense_pie_data = dao.get_expenses_by_category(user_id, month_start_date, month_end_date)
-    expense_pie_labels = [item[0] for item in expense_pie_data]
-    expense_pie_values = [item[1] for item in expense_pie_data]
-
-    income_pie_data = dao.get_income_by_category(user_id, month_start_date, month_end_date)
-    income_pie_labels = [item[0] for item in income_pie_data]
-    income_pie_values = [item[1] for item in income_pie_data]
-
-    monthly_expense_data = dao.get_monthly_expense(user_id, year_back_date, month_end_date)
-    monthly_expense_labels = [item[0] for item in monthly_expense_data]
-    monthly_expense_values = [item[1] for item in monthly_expense_data]
-
-    return render_template("graphs.html", 
-                            ex_pie_labels=expense_pie_labels,
-                            ex_pie_values=expense_pie_values,
-                            in_pie_labels=income_pie_labels,
-                            in_pie_values=income_pie_values,
-                            bar_monthly_labels=monthly_expense_labels,
-                            bar_monthly_values=monthly_expense_values)
-
 @app.route("/add_to_db", methods=["POST"])
 def add_to_db():
 

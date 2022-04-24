@@ -10,8 +10,8 @@
 
 <div class="row bar">
     <div class="profile-container">
-        <img src="../static/images/logo_transparent_bg.png" alt="Not Found">
-        <p>Welcome, {{ user_name }}</p>
+        <img src="../static/images/logo_transparent_bg.png" class="logo" alt="Not Found">
+        <p class="welcome-p">Welcome, {{ user_name }}</p>
         <a href="{{ url_for('log_out')}}">Log Out</a>
     </div>
 
@@ -49,9 +49,11 @@
 
     <div class="column left">
         <div class="container">
+            <div class="header-container">
+                <h2>Transactions</h2>
+            </div>
+            
             <div class="form-container">
-                <h3>Add Transaction</h3>
-
                 <form action="/add_to_db" method="POST">
                     <div class="add_form">
                         <div class="form-cell">
@@ -81,15 +83,17 @@
                             <br>
                             <select id="select_category" name="category"></select>
                         </div>
+                    </div>
 
-                        <div class="form-cell">
-                            <input type="submit" value="Add">
-                        </div>
+                    <div class="btn-container">
+                        <input class="form-btn" type="submit" value="Add">
+                        <button class="form-btn" onclick="cancel_btn_clicked()">Cancel</button>
                     </div>
                 </form>
             </div>
 
             <div class="table-container">
+                <button class="add-btn" onclick="add_btn_clicked()">Add Entry</button>
                 <table>
                     <thead>
                         <tr>

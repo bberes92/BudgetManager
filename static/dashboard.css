@@ -9,9 +9,11 @@
 .bar {
   justify-content: center;
   align-items: center;
-  margin: 2px 2px 0 2px;
-  padding: 10px 0;
+  margin: 5px 5px 0 5px;
+  padding: 5px;
   border: 1px solid rgb(161, 161, 161);
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 .column {
@@ -31,7 +33,16 @@
   width: 98%;
   height: fit-content;
   padding: 10px;
-  border: 1px solid rgb(189, 189, 189);;
+  border: 1px solid rgb(161, 161, 161);
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.header-container {
+  margin: 0 auto;
+  width: 98%;
+  height: fit-content;
+  text-align: center;
 }
 
 .table-container {
@@ -41,11 +52,19 @@
 }
 
 .form-container {
-  margin: 10px auto;
-  padding: 10px;
-  width: 98%;
+  margin: 0 auto;
+  padding: 5px;
+  width: fit-content;
   height: fit-content;
-  border: 1px solid rgb(189, 189, 189);
+  display: none;
+}
+
+.btn-container {
+  width: 100%;
+  height: fit-content;
+  margin-top: 5px;
+  padding: 5px;
+  text-align: center;
 }
 
 .data-box {
@@ -60,25 +79,27 @@
 .income-box {
   background-color: #6BCB77;
   border: 1px solid rgb(46, 46, 46);
+  border-radius: 5px;
 }
 
 .expense-box {
   background-color: #DF2E2E;
   border: 1px solid rgb(46, 46, 46);
+  border-radius: 5px;
 }
 
 .balance-box {
   background-color: #DFDFDE;
   border: 1px solid rgb(46, 46, 46);
+  border-radius: 5px;
 }
 
 .profile-container {
-  
   width: 20%;
   height: fit-content;
   margin: 0 auto;
   padding: 5px;
-  align-items: center;
+  text-align: center;
 }
 
 .date-container {
@@ -96,8 +117,27 @@
 
 .form-cell {
   width: 160px;
-  height: 75px;
+  height: 60px;
   padding: 5px;
+}
+
+.logo {
+  margin: 0;
+}
+
+.welcome-p {
+  margin: 2px 0;
+}
+
+.add-btn {
+  margin-bottom: 5px;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.form-btn {
+  padding: 5px;
+  font-size: 15px;
 }
 
 #income_col {
@@ -167,5 +207,11 @@ h5 {
 
 canvas {
   margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  margin: 0;
+  font-size: 15px;
 }
 

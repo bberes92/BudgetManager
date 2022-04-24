@@ -1,10 +1,24 @@
 const income_categories = ["Salary", "Scholarship"]
 const expense_categories = ["Food", "Bill", "Shopping"]
 
-
 document.addEventListener("DOMContentLoaded", () => {
     income_selected();
+
 });
+
+function add_btn_clicked() {
+    const add_btn = document.querySelector(".add-btn");
+    const form_container = document.querySelector(".form-container");
+    add_btn.style.display = "none";
+    form_container.style.display = "block";
+};
+
+function cancel_btn_clicked() {
+    const add_btn = document.querySelector(".add-btn");
+    const form_container = document.querySelector(".form-container");
+    add_btn.style.display = "block";
+    form_container.style.display = "none";
+}
 
 function fill_category_options(val) {
     if(val == "INCOME") {
