@@ -4,7 +4,7 @@ Flask based web application for financial tracking.
 
 The app allows you to closely track your income and expenses.
 
-![Project preview](/BudgetManager/ProjectPreview.jpg "Project Preview")
+![Project preview](https://github.com/bberes92/BudgetManager/blob/5e35b82f5499555c22f773c01861ba7928449b87/ProjectPreview.jpg "Project Preview")
 
 # Project Structure
 
