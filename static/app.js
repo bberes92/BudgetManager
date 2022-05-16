@@ -1,5 +1,5 @@
 const income_categories = ["Salary", "Scholarship"]
-const expense_categories = ["Food", "Bill", "Shopping"]
+const expense_categories = ["Food", "Bill", "Shopping", "Rent", "Mortgage"]
 
 document.addEventListener("DOMContentLoaded", () => {
     income_selected();

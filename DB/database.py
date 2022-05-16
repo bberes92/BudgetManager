@@ -4,7 +4,7 @@ import sqlite3
 
 class BudgetManager:
     def __init__(self):
-        self.conn = sqlite3.connect('/home/beresh/Documents/BudgetManager/DB/budget_manager.db')
+        self.conn = sqlite3.connect('D:/Projects/BudgetManager/DB/budget_manager.db')
         self.cur = self.conn.cursor()
         self.__create_tables()
 
