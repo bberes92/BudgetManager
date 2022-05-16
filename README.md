@@ -4,7 +4,7 @@ Flask based web application for financial tracking.
 
 The app allows you to closely track your income and expenses.
 
-# Project structure
+# Project Structure
 
 Backend : Flask with Python and Sqlite3 Database.
 
