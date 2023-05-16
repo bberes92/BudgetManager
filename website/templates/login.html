@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="row align-items-center">
+    <div class="col-8">
+        <img src="../static/images/login_img.jpg" class="img-fluid" alt="Not Found">
+    </div>
+
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="../static/images/profile.png" alt="Not Found">
+            <div class="card-body">
+                <form action="/login" method="POST">
+
+                    <div class="form-group">
+                        <label for="email" class="col-form-label-lg">Email:</label>
+                        <input type="email" class="form-control form-control-lg" name="email" id="email" required
+                            placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-form-label-lg">Password:</label>
+                        <input type="password" class="form-control form-control-lg" name="password" id="password"
+                            required placeholder="Password">
+                    </div>
+                    <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign Up</a></p>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Login</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
