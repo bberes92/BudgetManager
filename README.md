@@ -1,9 +1,9 @@
 # BudgetManager
 Table of Contents
-#Project Overview
+# Project Overview
 An in-depth paragraph about your project and overview of use.
 
-#Built With
+# Built With
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 Next
@@ -15,7 +15,7 @@ Laravel
 Bootstrap
 JQuery
 
-#Getting Started
+# Getting Started
 Dependencies
 Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 ex. Windows 10
